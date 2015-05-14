@@ -43,5 +43,7 @@ module.exports = function(environment) {
 
   }
 
+  ENV.podModulePrefix = ENV.modulePrefix + '/pods';
+
   return ENV;
 };
