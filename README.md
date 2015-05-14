@@ -12,6 +12,11 @@ It is inspired by one of the ember-simple-auth [examples](https://github.com/sim
 
 I added Sass and waterline for fun.
 
+This took about 30 minutes of time to create, granted I was able to copy most of the view/template code
+from the example I linked to above.
+
+I will post the steps I took to create this app, just to show how easy it is to do so.
+
 ## Installation
 
 * `git clone git@github.com:tzellman/ember-auth-example.git` this repository
