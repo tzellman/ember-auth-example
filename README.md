@@ -4,7 +4,6 @@ This is an example ember app that demonstrates using the following:
 
 * ember / ember-cli (w/pods)
 * [ember-simple-auth](https://github.com/simplabs/ember-simple-auth/)
-* [waterline](https://github.com/simplabs/ember-simple-auth/)
 * [waterline](https://github.com/balderdashy/waterline)
 * [bootstrap-sass](https://github.com/twbs/bootstrap-sass)
 
