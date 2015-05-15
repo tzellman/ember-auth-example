@@ -4,21 +4,13 @@ import BaseAuthorizer from 'simple-auth/authorizers/base';
 
 let Authenticator = BaseAuthenticator.extend({
 
-    store: Ember.inject.service("store:main"),
-    baseUrl : '/api',
+    baseUrl: '/api',
 
     restore: function (data) {
-        console.log("in restore!!!");
         return new Ember.RSVP.Promise(function (resolve, reject) {
-            if (!Ember.isEmpty(data.username) && !Ember.isEmpty(data.email)) {
-
-                // TODO potentially make a call to the server
-                // to see if the server sesesion is active
-
-                console.log("resolving!");
+            if (!Ember.isEmpty(data.username)) {
                 resolve(data);
             } else {
-                console.log("could not resolve");
                 reject();
             }
         });
@@ -37,13 +29,14 @@ let Authenticator = BaseAuthenticator.extend({
                 }
             }).then(function (response) {
                 Ember.run(function () {
-                    resolve(response.data);
+                    resolve(response.user);
                 });
             }, function (xhr) {
                 var response = xhr.responseText;
                 try {
                     response = JSON.parse(response).errors || response;
-                } catch(e){}
+                } catch (e) {
+                }
                 Ember.run(function () {
                     reject(response);
                 });
@@ -74,15 +67,17 @@ let Authenticator = BaseAuthenticator.extend({
 
 let Authorizer = BaseAuthorizer.extend({
 
-    authorize: function(jqXHR, requestOptions){
-        // TODO does nothing for now...
+    authorize: function (jqXHR, requestOptions) {
+        if (this.get('session.isAuthenticated') && !Ember.isEmpty(this.get('session.secure.username'))) {
+            // TODO potentially set a header
+        }
     }
 });
 
 
 export function initialize(container, application) {
-    container.register('authenticator:custom', Authenticator);
-    container.register('authorizer:custom', Authorizer);
+    application.register('authenticator:custom', Authenticator);
+    application.register('authorizer:custom', Authorizer);
 }
 
 export default {
